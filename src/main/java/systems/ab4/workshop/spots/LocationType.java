@@ -7,5 +7,5 @@ public enum LocationType
 {
     COUNTRY,
     REGION,
-    TOWN
+    CITY
 }

@@ -4,6 +4,7 @@ import systems.ab4.workshop.spots.LocationType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table
@@ -21,14 +22,28 @@ public class Location {
 	@ManyToOne
 	private Location parent;
 
+	@OneToMany(mappedBy = "parent",fetch = FetchType.EAGER)
+    private List<Location> children;
+
 	@Enumerated(EnumType.STRING)
 	private LocationType type;
 
-	public Long getId() {
-		return id;
-	}
 
-	public String getName() {
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parent=" + parent +
+                ", children=" + (children !=null ? children.size():0) +
+                ", type=" + type +
+                '}';
+    }
+    public Long getId() {
+        return id;
+    }
+    public String getName() {
 		return name;
 	}
 
@@ -61,4 +76,7 @@ public class Location {
 		this.parent = parent;
 		this.type = type;
 	}
+
+    public Location() {
+    }
 }
